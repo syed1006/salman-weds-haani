@@ -79,14 +79,24 @@ function initGate(music: { tryPlay: () => void }): void {
           document.body.classList.remove('locked');
         },
       })
-      // the letter has risen — the gate dissolves into the site
-      .to(gate, { autoAlpha: 0, scale: 1.05, duration: 1.1, ease: 'power2.inOut' })
+      // the words around the envelope slip away first…
+      .to('.gate-inner > :not(.gate-envelope)', {
+        autoAlpha: 0,
+        y: -24,
+        stagger: 0.05,
+        duration: 0.5,
+        ease: 'power2.in',
+      })
+      // …then we travel INTO the risen letter, the gate melting around it
+      .to('.gate-lottie', { scale: 2.4, duration: 1.4, ease: 'power2.inOut' }, 0.25)
+      .to('.gate-lottie', { autoAlpha: 0, duration: 0.7, ease: 'power1.in' }, 0.85)
+      .to(gate, { autoAlpha: 0, duration: 0.8, ease: 'power1.inOut' }, 0.8)
       // golden light blooms behind the hero as it appears
       .fromTo(
         '.hero-bloom',
         { autoAlpha: 0, scale: 0.7 },
         { autoAlpha: 1, scale: 1, duration: 2.2, ease: 'power2.out' },
-        0.3
+        0.7
       );
   };
 

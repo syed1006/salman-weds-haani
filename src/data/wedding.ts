@@ -35,7 +35,7 @@ export const wedding = {
     bride: {
       name: 'Umme Haani',
       degree: 'B.C.A.',
-      parents: 'Mrs. & Mr. Mohammed Yousuff',
+      parents: 'Mr. Mohammed Yousuff & Mrs. Tabassum Unnisa',
       parentsDetail: 'K.K.H. Store, Santhepet, Arsikere',
       lineage: [
         'Paternal Grand D/o. Late K.K.H. Abdul Khaleel Saheb',
@@ -50,7 +50,7 @@ export const wedding = {
   hosts: {
     intro: 'With the blessings of Almighty Allah, the families of',
     groomSide: 'Mr. Syed Ghouse Ahamed & Mrs. Shabeena Banu',
-    brideSide: 'Mrs. & Mr. Mohammed Yousuff',
+    brideSide: 'Mr. Mohammed Yousuff & Mrs. Tabassum Unnisa',
     line: 'solicit your blessings & request the honour of your presence with family and friends on the auspicious occasion of the Nikah & Valima of their beloved children',
   },
 

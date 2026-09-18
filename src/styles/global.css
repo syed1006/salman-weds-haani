@@ -208,16 +208,18 @@ a {
 }
 
 .gate-lottie {
-  width: min(82vw, 26rem);
+  width: min(94vw, 34rem);
   aspect-ratio: 1440 / 1024;
   filter: drop-shadow(0 18px 30px rgba(138, 85, 96, 0.22));
   transition: transform 0.3s ease;
+  transform-origin: center 42%; /* zoom towards the letter, not the envelope pocket */
   /* gentle breathing until tapped */
   animation: envelope-breathe 3.2s ease-in-out infinite;
 }
 
 .gate.opening .gate-lottie {
   animation: none;
+  transition: none; /* GSAP owns the transform during the reveal */
 }
 
 .gate-envelope:hover .gate-lottie {
