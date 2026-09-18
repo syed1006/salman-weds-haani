@@ -26,7 +26,7 @@ export function initScroll(): void {
       'invitation:open',
       () => {
         gsap
-          .timeline({ defaults: { ease: 'power3.out' }, delay: 1.6 })
+          .timeline({ defaults: { ease: 'power3.out' }, delay: 0.5 })
           .fromTo(
             '.chandelier',
             { y: -90 },

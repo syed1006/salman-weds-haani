@@ -45,47 +45,87 @@ function initMusic(): { tryPlay: () => void } {
   };
 }
 
-// ── Gate + curtain opening ─────────────────────────────────────
+// ── Gate: sealed envelope opens the invitation ─────────────────
+// Animation: "Wedding Invitation" envelope from LottieFiles (free,
+// Lottie Simple License) — watercolor envelope with gold wax seal.
+const ENVELOPE_END_FRAME = 360; // the source clip fades to black after this
+
 function initGate(music: { tryPlay: () => void }): void {
   const gate = document.getElementById('gate');
-  const curtains = document.getElementById('curtains');
+  const holder = document.getElementById('gate-lottie');
   const openBtn = document.getElementById('gate-open');
-  if (!gate || !curtains || !openBtn) return;
+  const hint = document.getElementById('gate-hint');
+  if (!gate || !holder || !openBtn) return;
 
-  const finish = () => {
-    curtains.style.display = 'none';
-    document.body.classList.remove('locked');
+  let anim: { play: () => void; setSpeed: (s: number) => void; playSegments: (s: [number, number], f: boolean) => void; addEventListener: (e: string, cb: () => void) => void } | null = null;
+  let opened = false;
+  let revealed = false;
+
+  const reveal = () => {
+    if (revealed) return;
+    revealed = true;
+    document.dispatchEvent(new CustomEvent('invitation:open'));
+
+    if (reducedMotion()) {
+      gate.style.display = 'none';
+      document.body.classList.remove('locked');
+      return;
+    }
+
+    gsap
+      .timeline({
+        onComplete: () => {
+          gate.style.display = 'none';
+          document.body.classList.remove('locked');
+        },
+      })
+      // the letter has risen — the gate dissolves into the site
+      .to(gate, { autoAlpha: 0, scale: 1.05, duration: 1.1, ease: 'power2.inOut' })
+      // golden light blooms behind the hero as it appears
+      .fromTo(
+        '.hero-bloom',
+        { autoAlpha: 0, scale: 0.7 },
+        { autoAlpha: 1, scale: 1, duration: 2.2, ease: 'power2.out' },
+        0.3
+      );
   };
 
-  openBtn.addEventListener(
-    'click',
-    () => {
-      music.tryPlay();
-      document.dispatchEvent(new CustomEvent('invitation:open'));
+  // Load the envelope animation (svg-only lottie build, ~⅓ the size)
+  (async () => {
+    try {
+      // @ts-ignore — no type declarations for the light player entry
+      const mod = await import('lottie-web/build/player/lottie_light');
+      const lottie = mod.default ?? mod;
+      anim = lottie.loadAnimation({
+        container: holder,
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        path: gate.dataset.lottie,
+      });
+      anim!.addEventListener('DOMLoaded', () => gate.classList.add('anim-ready'));
+      anim!.addEventListener('complete', reveal);
+    } catch {
+      /* lottie failed to load — tap still opens the site plainly */
+    }
+  })();
 
-      if (reducedMotion()) {
-        gate.style.display = 'none';
-        finish();
-        return;
-      }
+  openBtn.addEventListener('click', () => {
+    if (opened) return;
+    opened = true;
+    music.tryPlay();
+    gate.classList.add('opening');
+    if (hint) gsap.to(hint, { autoAlpha: 0, duration: 0.4 });
 
-      gsap
-        .timeline({ onComplete: finish })
-        // the gate melts away with a slight zoom, like stepping through it
-        .to('.gate-inner', { scale: 1.08, autoAlpha: 0, duration: 0.9, ease: 'power2.in' })
-        .to(gate, { autoAlpha: 0, duration: 0.6, ease: 'power1.out' }, '-=0.35')
-        .set(gate, { display: 'none' })
-        // curtains billow outward before gliding open
-        .to('#curtain-left', { scaleX: 1.05, transformOrigin: 'left center', duration: 0.55, ease: 'sine.in' }, 0.55)
-        .to('#curtain-right', { scaleX: 1.05, transformOrigin: 'right center', duration: 0.55, ease: 'sine.in' }, 0.55)
-        .to('#curtain-left', { xPercent: -106, scaleX: 1, duration: 2.6, ease: 'power4.inOut' }, 1.1)
-        .to('#curtain-right', { xPercent: 106, scaleX: 1, duration: 2.6, ease: 'power4.inOut' }, 1.1)
-        .to('#curtain-valance', { yPercent: -140, duration: 2, ease: 'power3.inOut' }, 1.5)
-        // golden light blooms through as the stage opens
-        .fromTo('.hero-bloom', { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 2.2, ease: 'power2.out' }, 1.4);
-    },
-    { once: true }
-  );
+    if (anim && gate.classList.contains('anim-ready') && !reducedMotion()) {
+      anim.setSpeed(1.25);
+      anim.playSegments([0, ENVELOPE_END_FRAME], true);
+      // safety net: if `complete` never fires, open anyway
+      setTimeout(reveal, 8000);
+    } else {
+      reveal();
+    }
+  });
 }
 
 // ── Confetti (gold & emerald petals) ───────────────────────────

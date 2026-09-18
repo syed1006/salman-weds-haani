@@ -197,103 +197,60 @@ a {
   min-height: 1.5em;
 }
 
-.gate-open {
-  margin-top: 1.4rem;
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 1rem 2.4rem;
-  background: linear-gradient(160deg, var(--blush), var(--blush-deep));
-  border: 1px solid var(--gold);
-  border-radius: 999px;
-  color: var(--mauve);
-  font-family: var(--font-serif);
-  font-size: 0.95rem;
-  letter-spacing: 0.32em;
-  text-indent: 0.1em;
-  text-transform: uppercase;
+/* the envelope IS the open button */
+.gate-envelope {
+  margin-top: 0.4rem;
+  padding: 0;
+  border: none;
+  background: none;
   cursor: pointer;
-  animation: gate-pulse 2.6s ease-in-out infinite;
-  transition: background 0.3s ease, color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.gate-open:hover {
-  background: var(--gold);
-  color: var(--ivory);
+.gate-lottie {
+  width: min(82vw, 26rem);
+  aspect-ratio: 1440 / 1024;
+  filter: drop-shadow(0 18px 30px rgba(138, 85, 96, 0.22));
+  transition: transform 0.3s ease;
+  /* gentle breathing until tapped */
+  animation: envelope-breathe 3.2s ease-in-out infinite;
 }
 
-.gate-seal {
-  width: 2rem;
-  height: 2rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
+.gate.opening .gate-lottie {
+  animation: none;
 }
 
-@keyframes gate-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(185, 140, 74, 0.4); }
-  55% { box-shadow: 0 0 0 16px rgba(185, 140, 74, 0); }
+.gate-envelope:hover .gate-lottie {
+  transform: scale(1.03);
 }
 
-/* ── Curtains ─────────────────────────────────────────── */
-
-.curtains {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  overflow: hidden;
-  pointer-events: none;
+/* hide the empty box until the animation is loaded */
+.gate:not(.anim-ready) .gate-lottie {
+  opacity: 0;
 }
 
-.curtain-panel {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 51%;
-  background:
-    linear-gradient(180deg, rgba(138, 85, 96, 0.16), transparent 22%, rgba(138, 85, 96, 0.26)),
-    repeating-linear-gradient(
-      90deg,
-      #e2aab6 0px,
-      #f4d3da 32px,
-      #dc9fac 66px,
-      #d18e9d 96px
-    );
-  box-shadow: inset 0 -30px 60px rgba(138, 85, 96, 0.35);
+.gate.anim-ready .gate-lottie {
+  opacity: 1;
+  transition: opacity 0.6s ease, transform 0.3s ease;
 }
 
-.curtain-panel.left { left: 0; }
-.curtain-panel.right { right: 0; }
-
-/* gold tassel fringe along the inner edge */
-.curtain-panel .fringe {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 14px;
-  background: repeating-linear-gradient(
-    180deg,
-    var(--gold) 0 10px,
-    rgba(185, 140, 74, 0.35) 10px 14px
-  );
-  opacity: 0.9;
+@keyframes envelope-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.025); }
 }
 
-.curtain-panel.left .fringe { right: 0; }
-.curtain-panel.right .fringe { left: 0; }
-
-.valance {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: clamp(90px, 16vh, 170px);
-  filter: drop-shadow(0 10px 18px rgba(138, 85, 96, 0.35));
+.gate-hint {
+  font-size: 0.82rem;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  animation: hint-fade 2.6s ease-in-out infinite;
 }
 
-.valance svg {
-  width: 100%;
-  height: 100%;
+@keyframes hint-fade {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
 }
 
 /* ── Hero ─────────────────────────────────────────────── */
@@ -1033,6 +990,7 @@ a {
   .scroll-cue .line,
   .chandelier,
   .ch-flames ellipse,
-  .gate-open,
+  .gate-lottie,
+  .gate-hint,
   .music-toggle.playing { animation: none; }
 }
