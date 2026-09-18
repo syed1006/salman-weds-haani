@@ -1,0 +1,48 @@
+---
+// Blush velvet stage curtains with a gold-fringed valance.
+// They sit above the page and part when the gate is opened.
+---
+
+<div class="curtains" id="curtains" aria-hidden="true">
+  <div class="curtain-panel left" id="curtain-left">
+    <div class="fringe"></div>
+  </div>
+  <div class="curtain-panel right" id="curtain-right">
+    <div class="fringe"></div>
+  </div>
+
+  <!-- Scalloped valance across the top -->
+  <div class="valance" id="curtain-valance">
+    <svg viewBox="0 0 1200 190" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="velvet" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#e2aab6" />
+          <stop offset="0.55" stop-color="#f1cdd5" />
+          <stop offset="1" stop-color="#d896a5" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M0 0 H1200 V95
+           Q1150 178 1050 130 Q1000 180 900 132 Q850 182 750 133
+           Q700 183 600 134 Q500 183 450 133 Q350 182 300 132
+           Q200 180 150 130 Q50 178 0 95 Z"
+        fill="url(#velvet)"
+      />
+      <path
+        d="M0 95 Q50 178 150 130 Q200 180 300 132 Q350 182 450 133
+           Q500 183 600 134 Q700 183 750 133 Q850 182 900 132
+           Q1000 180 1050 130 Q1150 178 1200 95"
+        fill="none" stroke="#b98c4a" stroke-width="5"
+      />
+      <!-- tassels hanging where the swags meet -->
+      <g stroke="#b98c4a" stroke-width="3" fill="#b98c4a">
+        {[150, 300, 450, 600, 750, 900, 1050].map((x) => (
+          <>
+            <line x1={x} y1={131} x2={x} y2={158} />
+            <path d={`M${x} 158 l7 12 -7 12 -7 -12 z`} />
+          </>
+        ))}
+      </g>
+    </svg>
+  </div>
+</div>

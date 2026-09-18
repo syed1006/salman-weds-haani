@@ -1,0 +1,15 @@
+---
+import { wedding } from '../data/wedding';
+const { compliments } = wedding;
+---
+
+<section class="compliments center" id="compliments">
+  <div class="container reveal-group">
+    <p class="eyebrow">{compliments.heading}</p>
+    <div class="gold-rule"></div>
+    <ul class="compliments-list">
+      {compliments.names.map((n) => <li>{n}</li>)}
+    </ul>
+    <p class="compliments-closing">{compliments.closing}</p>
+  </div>
+</section>

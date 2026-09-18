@@ -1,0 +1,72 @@
+---
+import { wedding } from '../data/wedding';
+const { events } = wedding;
+---
+
+<section class="events center" id="events">
+  <div class="container">
+    <div class="reveal-group">
+      <p class="eyebrow">Program Details</p>
+      <h2 class="section-title">Events &amp; Venues</h2>
+    </div>
+
+    <div class="events-grid">
+      {events.map((ev) => (
+        <article class="event-card reveal-group">
+          <span class="event-badge">{ev.badge}</span>
+
+          {ev.motif === 'mosque' ? (
+            <svg class="event-motif" viewBox="0 0 220 120" aria-hidden="true">
+              <!-- minarets -->
+              <path d="M22 116 V56 M34 116 V56 M22 56 Q28 40 34 56 M28 34 v8" />
+              <circle cx="28" cy="30" r="3" />
+              <path d="M186 116 V56 M198 116 V56 M186 56 Q192 40 198 56 M192 34 v8" />
+              <circle cx="192" cy="30" r="3" />
+              <!-- main dome -->
+              <path d="M66 116 V74 Q66 38 110 26 Q154 38 154 74 V116" />
+              <path d="M110 26 V14" />
+              <circle cx="110" cy="10" r="3.4" />
+              <!-- side domes -->
+              <path d="M46 116 V88 Q46 72 66 68 M154 68 Q174 72 174 88 V116" />
+              <!-- arch door -->
+              <path d="M96 116 V96 Q96 82 110 82 Q124 82 124 96 V116" />
+              <line x1="10" y1="116" x2="210" y2="116" />
+            </svg>
+          ) : (
+            <svg class="event-motif" viewBox="0 0 220 120" aria-hidden="true">
+              <!-- pavilion hall -->
+              <path d="M30 116 V64 H190 V116" />
+              <path d="M22 64 L110 24 L198 64" />
+              <path d="M110 24 V12" />
+              <path d="M104 12 h12" />
+              <!-- pillars -->
+              <path d="M52 116 V78 M85 116 V78 M135 116 V78 M168 116 V78" />
+              <!-- arched entry -->
+              <path d="M98 116 V92 Q98 80 110 80 Q122 80 122 92 V116" />
+              <!-- bunting -->
+              <path d="M40 70 Q75 84 110 70 Q145 84 180 70" />
+              <line x1="10" y1="116" x2="210" y2="116" />
+            </svg>
+          )}
+
+          <p class="event-when">
+            {ev.day}, {ev.date}
+            <span class="event-time">🕰 {ev.time}</span>
+            {ev.hijri && <span class="event-hijri">({ev.hijri})</span>}
+          </p>
+
+          <div class="event-venue">
+            <strong>📍 {ev.venue}</strong>
+            <span>{ev.address}</span>
+          </div>
+
+          {ev.note && <p class="event-note">{ev.note}</p>}
+
+          <a class="btn btn-map" href={ev.mapUrl} target="_blank" rel="noopener">
+            View Location on Google Maps
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

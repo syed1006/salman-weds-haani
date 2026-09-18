@@ -1,0 +1,18 @@
+---
+import { wedding } from '../data/wedding';
+const { dua } = wedding;
+---
+
+<section class="dua center" id="dua">
+  <div class="container reveal-group">
+    <p class="dua-bismillah arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+    <p class="dua-inname">In the name of Allah,<br />the most beneficent &amp; most merciful.</p>
+
+    <div class="gold-rule"></div>
+
+    <p class="dua-arabic arabic">{dua.arabic}</p>
+    <p class="dua-translit">{dua.transliteration}</p>
+    <p class="dua-translation">{dua.translation}</p>
+    <p class="dua-source">{dua.source}</p>
+  </div>
+</section>

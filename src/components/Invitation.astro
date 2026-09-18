@@ -1,0 +1,41 @@
+---
+import { wedding } from '../data/wedding';
+const { hosts, couple } = wedding;
+---
+
+<section class="invitation center" id="invitation">
+  <div class="container">
+    <div class="reveal-group invite-head">
+      <p class="eyebrow">The Honour Of Your Presence</p>
+      <p class="invite-intro">{hosts.intro}</p>
+      <p class="invite-hosts">{hosts.groomSide}</p>
+      <p class="invite-amp script">and</p>
+      <p class="invite-hosts">{hosts.brideSide}</p>
+      <p class="invite-line">{hosts.line}</p>
+    </div>
+
+    <!-- The Groom -->
+    <article class="person-card reveal-group">
+      <p class="person-label">The Groom</p>
+      <p class="person-name script">{couple.groom.name}</p>
+      <p class="person-degree">{couple.groom.degree}</p>
+      <p class="person-parents-label">Son Of</p>
+      <p class="person-parents">{couple.groom.parents}</p>
+      <p class="person-parents-detail">{couple.groom.parentsDetail}</p>
+      {couple.groom.lineage.map((l) => <p class="person-lineage">{l}</p>)}
+    </article>
+
+    <p class="invite-with script" aria-hidden="true">weds</p>
+
+    <!-- The Bride -->
+    <article class="person-card reveal-group">
+      <p class="person-label">The Bride</p>
+      <p class="person-name script">{couple.bride.name}</p>
+      <p class="person-degree">{couple.bride.degree}</p>
+      <p class="person-parents-label">Daughter Of</p>
+      <p class="person-parents">{couple.bride.parents}</p>
+      <p class="person-parents-detail">{couple.bride.parentsDetail}</p>
+      {couple.bride.lineage.map((l) => <p class="person-lineage">{l}</p>)}
+    </article>
+  </div>
+</section>

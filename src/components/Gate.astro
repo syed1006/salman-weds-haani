@@ -1,0 +1,29 @@
+---
+import { wedding } from '../data/wedding';
+const { couple } = wedding;
+---
+
+<!-- Full-screen entry gate: tap to open the invitation (also unlocks audio) -->
+<div class="gate" id="gate">
+  <div class="gate-inner">
+    <p class="gate-bismillah arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+    <p class="eyebrow">The Wedding Invitation Of</p>
+    <p class="gate-names script">{couple.shortNames}</p>
+    <p class="gate-guest" id="gate-guest" aria-live="polite"></p>
+    <button class="gate-open" id="gate-open" type="button">
+      <svg viewBox="0 0 48 48" aria-hidden="true" class="gate-seal">
+        <circle cx="24" cy="24" r="22" />
+        <path d="M10 18 L24 28 L38 18" />
+        <rect x="10" y="16" width="28" height="18" rx="2" />
+      </svg>
+      <span>Open Invitation</span>
+    </button>
+  </div>
+</div>
+
+<noscript>
+  <style>
+    .gate, .curtains { display: none !important; }
+    body { overflow: auto !important; }
+  </style>
+</noscript>

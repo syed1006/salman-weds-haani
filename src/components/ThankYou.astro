@@ -1,0 +1,27 @@
+---
+import { wedding } from '../data/wedding';
+const { thankYou, couple } = wedding;
+---
+
+<footer class="thankyou center" id="thankyou">
+  <div class="reveal-group">
+    <!-- Open envelope with a thank-you card -->
+    <svg class="envelope" viewBox="0 0 240 190" aria-hidden="true">
+      <!-- open flap -->
+      <path class="env-flap" d="M40 92 L120 30 L200 92" />
+      <!-- card sliding out -->
+      <g class="env-card">
+        <rect x="58" y="52" width="124" height="82" rx="4" />
+        <text x="120" y="88" class="env-script">Thank You</text>
+        <text x="120" y="110" class="env-small">for your blessings &amp; love</text>
+      </g>
+      <!-- envelope pocket -->
+      <path class="env-pocket" d="M40 92 V166 H200 V92 L120 140 Z" />
+      <path class="env-bow" d="M120 150 q-8 -7 -14 0 q6 7 14 0 q8 -7 14 0 q-6 7 -14 0 M120 146 v8" />
+    </svg>
+
+    <p class="thankyou-line">{thankYou.line}</p>
+    <p class="footer-monogram script">{couple.monogram}</p>
+    <p class="footer-note">Made with duas &amp; love · {couple.shortNames} · 2026</p>
+  </div>
+</footer>

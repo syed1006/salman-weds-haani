@@ -1,0 +1,21 @@
+---
+import { wedding } from '../data/wedding';
+const { rsvp } = wedding;
+---
+
+<section class="rsvp center" id="rsvp" data-whatsapp={rsvp.whatsapp}>
+  <div class="container reveal-group">
+    <h2 class="section-title rsvp-title">{rsvp.heading}</h2>
+    <p class="rsvp-sub">{rsvp.sub}</p>
+
+    <div class="rsvp-actions">
+      <button class="btn btn-solid" id="rsvp-yes" type="button">I'll Be There ❤️</button>
+      <button class="btn btn-ghost" id="rsvp-no" type="button">Will Miss It 😔</button>
+    </div>
+
+    <p class="rsvp-response" id="rsvp-response" aria-live="polite"></p>
+    <a class="rsvp-wa" id="rsvp-wa" href="#" target="_blank" rel="noopener" hidden>
+      Send your duas on WhatsApp →
+    </a>
+  </div>
+</section>
