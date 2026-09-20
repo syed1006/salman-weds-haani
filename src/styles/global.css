@@ -200,14 +200,15 @@ a {
   text-shadow: 0 2px 30px rgba(176, 106, 119, 0.25);
 }
 
-/* watercolor garland: a full-bleed floral band across the top.
-   It sits in normal flow, so it can never cover the text below —
-   on any screen size. */
+/* watercolor garland valance: in normal flow (can never cover the
+   text below) and tiled from a mirrored strip, so it spans any width
+   seamlessly while keeping its organic hanging edge. */
 .gate-garland {
   width: 100%;
-  height: clamp(150px, 24vh, 320px);
-  object-fit: cover;
-  object-position: center top;
+  height: clamp(200px, 34vh, 420px);
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: center top;
   pointer-events: none;
   filter: drop-shadow(0 6px 14px rgba(138, 85, 96, 0.12));
 }
@@ -289,6 +290,8 @@ a {
 
 .gate-lottie {
   width: min(94vw, 34rem);
+  /* on short/wide screens, shrink to leave room for the text above */
+  max-height: 32vh;
   aspect-ratio: 1440 / 1024;
   filter: drop-shadow(0 18px 30px rgba(138, 85, 96, 0.22));
   transition: transform 0.3s ease;
@@ -440,12 +443,13 @@ a {
   line-height: 1.15;
 }
 
-/* watercolor garland: full-bleed floral band across the hero top */
+/* watercolor garland valance across the hero top (seamless mirror-tile) */
 .hero-garland {
   width: 100%;
-  height: clamp(130px, 20vh, 280px);
-  object-fit: cover;
-  object-position: center top;
+  height: clamp(150px, 26vh, 330px);
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: center top;
   pointer-events: none;
   z-index: 0;
 }

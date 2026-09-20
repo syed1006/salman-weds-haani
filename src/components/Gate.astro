@@ -8,16 +8,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 <!-- Full-screen entry gate: a sealed envelope — tap to open the invitation -->
 <div class="gate" id="gate" data-lottie={`${base}/lottie/envelope/data.json`}>
-  <!-- watercolor garland draped across the top, like a floral valance -->
-  <img
+  <!-- watercolor garland valance: a seamless mirror-tile, so it drapes
+       across any screen width with its natural hanging edge intact -->
+  <div
     class="gate-garland"
-    src={`${base}/img/garland-full.webp`}
-    alt=""
-    width="1280"
-    height="954"
-    loading="eager"
-    decoding="async"
-  />
+    style={`background-image:url('${base}/img/garland-band-full.webp')`}
+    aria-hidden="true"
+  >
+  </div>
 
   <!-- twinkling gold sparkles -->
   <span class="sparkle" aria-hidden="true"></span>

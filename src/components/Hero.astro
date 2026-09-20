@@ -8,16 +8,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <!-- Soft golden bloom that breathes in as the curtains part -->
   <div class="hero-bloom" aria-hidden="true"></div>
 
-  <!-- watercolor garland valance across the top -->
-  <img
+  <!-- watercolor garland valance: seamless mirror-tile across any width -->
+  <div
     class="hero-garland"
-    src={`${base}/img/garland-light.webp`}
-    alt=""
-    width="1280"
-    height="616"
-    loading="eager"
-    decoding="async"
-  />
+    style={`background-image:url('${base}/img/garland-band-light.webp')`}
+    aria-hidden="true"
+  >
+  </div>
 
   <!-- Gold monogram wreath with the couple's initials -->
   <div class="hero-couple" aria-hidden="true">
