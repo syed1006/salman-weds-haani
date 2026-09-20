@@ -24,7 +24,7 @@ export const wedding = {
   couple: {
     groom: {
       name: 'Syed Salman',
-      degree: 'B.E. · Software Engineer',
+      degree: 'B.E.',
       parents: 'Mr. Syed Ghouse Ahamed & Mrs. Shabeena Banu',
       parentsDetail: 'S.N.G. Traders, Vegetable Merchant, A.P.M.C. Market, Arsikere',
       lineage: [
@@ -140,12 +140,6 @@ export const wedding = {
     sub: 'Join us as we step into our forever',
     // WhatsApp number (country code + number, digits only) for RSVP messages.
     whatsapp: '918095693528',
-  },
-
-  compliments: {
-    heading: 'With Best Compliments From',
-    names: ['Brother : S.N.R. Syed Abdul Rahaman (Babu) & Family', 'Relatives & Friends'],
-    closing: '✦ Near & Dear ✦',
   },
 
   thankYou: {

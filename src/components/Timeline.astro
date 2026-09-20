@@ -14,6 +14,7 @@ const { program } = wedding;
       <div class="program-day reveal-group">
         <p class="program-day-title script">{day.title}</p>
         <ol class="timeline">
+          <span class="timeline-line" aria-hidden="true"></span>
           {day.items.map((it) => (
             <li class="timeline-item">
               <span class="timeline-dot" aria-hidden="true"></span>

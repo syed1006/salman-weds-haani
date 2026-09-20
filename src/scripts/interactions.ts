@@ -2,18 +2,6 @@ import gsap from 'gsap';
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// ── Per-guest personalization (?to=Guest+Name) ─────────────────
-function initGuest(): string {
-  const guest = new URLSearchParams(location.search).get('to')?.trim() ?? '';
-  if (guest) {
-    const gate = document.getElementById('gate-guest');
-    const hero = document.getElementById('hero-guest');
-    if (gate) gate.textContent = `Dear ${guest} & family,`;
-    if (hero) hero.textContent = `In honour of ${guest} & family`;
-  }
-  return guest;
-}
-
 // ── Background nasheed ─────────────────────────────────────────
 function initMusic(): { tryPlay: () => void } {
   const audio = document.getElementById('bg-music') as HTMLAudioElement | null;
@@ -64,21 +52,16 @@ function initGate(music: { tryPlay: () => void }): void {
   const reveal = () => {
     if (revealed) return;
     revealed = true;
-    document.dispatchEvent(new CustomEvent('invitation:open'));
 
     if (reducedMotion()) {
+      document.dispatchEvent(new CustomEvent('invitation:open'));
       gate.style.display = 'none';
       document.body.classList.remove('locked');
       return;
     }
 
     gsap
-      .timeline({
-        onComplete: () => {
-          gate.style.display = 'none';
-          document.body.classList.remove('locked');
-        },
-      })
+      .timeline()
       // the words around the envelope slip away first…
       .to('.gate-inner > :not(.gate-envelope)', {
         autoAlpha: 0,
@@ -87,6 +70,7 @@ function initGate(music: { tryPlay: () => void }): void {
         duration: 0.5,
         ease: 'power2.in',
       })
+      .to('.gate-garland', { autoAlpha: 0, y: -40, duration: 0.6, ease: 'power2.in' }, 0.1)
       // a burst of golden light escapes the envelope…
       .fromTo(
         '.light-burst',
@@ -94,17 +78,22 @@ function initGate(music: { tryPlay: () => void }): void {
         { autoAlpha: 1, scale: 2.4, duration: 0.55, ease: 'power2.out' },
         0.15
       )
-      .to('.light-burst', { autoAlpha: 0, scale: 3.1, duration: 0.7, ease: 'power1.out' }, 0.7)
-      // …then we travel INTO the risen letter, the gate melting around it
-      .to('.gate-lottie', { scale: 2.4, duration: 1.4, ease: 'power2.inOut' }, 0.25)
-      .to('.gate-lottie', { autoAlpha: 0, duration: 0.7, ease: 'power1.in' }, 0.85)
-      .to(gate, { autoAlpha: 0, duration: 0.8, ease: 'power1.inOut' }, 0.8)
-      // golden light blooms behind the hero as it appears
+      // …we travel INTO the risen letter…
+      .to('.gate-lottie', { scale: 2.6, duration: 1.3, ease: 'power2.in' }, 0.25)
+      // …and the light swallows the screen
+      .to('#flash', { autoAlpha: 1, duration: 0.4, ease: 'power2.in' }, 1.0)
+      .add(() => {
+        gate.style.display = 'none';
+        document.body.classList.remove('locked');
+        document.dispatchEvent(new CustomEvent('invitation:open'));
+      }, 1.42)
+      .to('#flash', { autoAlpha: 0, duration: 1.1, ease: 'power2.out' }, 1.55)
+      // golden light blooms behind the hero as the flash clears
       .fromTo(
         '.hero-bloom',
         { autoAlpha: 0, scale: 0.7 },
         { autoAlpha: 1, scale: 1, duration: 2.2, ease: 'power2.out' },
-        0.7
+        1.5
       );
   };
 
@@ -377,7 +366,7 @@ function initCountdown(): void {
 }
 
 // ── RSVP ───────────────────────────────────────────────────────
-function initRsvp(guest: string): void {
+function initRsvp(): void {
   const section = document.getElementById('rsvp');
   const yes = document.getElementById('rsvp-yes');
   const no = document.getElementById('rsvp-no');
@@ -386,7 +375,6 @@ function initRsvp(guest: string): void {
   if (!section || !yes || !no || !response || !wa) return;
 
   const number = section.dataset.whatsapp ?? '';
-  const from = guest ? ` — ${guest}` : '';
 
   const answer = (going: boolean) => {
     response.textContent = going
@@ -394,8 +382,8 @@ function initRsvp(guest: string): void {
       : 'You will be missed — please keep us in your duas 🤲';
     if (number) {
       const msg = going
-        ? `Assalamu alaikum! Insha Allah we will join the Nikah of Salman & Hani on 11th October 2026 ❤️${from}`
-        : `Assalamu alaikum! We are sorry we can't make it to the Nikah of Salman & Hani — our duas are always with you 🤲${from}`;
+        ? 'Assalamu alaikum! Insha Allah we will join the Nikah of Salman & Hani on 11th October 2026 ❤️'
+        : "Assalamu alaikum! We are sorry we can't make it to the Nikah of Salman & Hani — our duas are always with you 🤲";
       wa.href = `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
       wa.hidden = false;
     }
@@ -406,12 +394,45 @@ function initRsvp(guest: string): void {
   no.addEventListener('click', () => answer(false));
 }
 
+// ── Gold roses divider — draws itself when scrolled into view ──
+function initOrnaments(): void {
+  const ornaments = Array.from(document.querySelectorAll<HTMLElement>('.ornament[data-roses]'));
+  if (!ornaments.length || reducedMotion()) return;
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(async (entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target as HTMLElement;
+        io.unobserve(el);
+        try {
+          // @ts-ignore — no type declarations for the light player entry
+          const mod = await import('lottie-web/build/player/lottie_light');
+          const lottie = mod.default ?? mod;
+          const anim = lottie.loadAnimation({
+            container: el.querySelector('.ornament-lottie'),
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: el.dataset.roses,
+          });
+          anim.addEventListener('DOMLoaded', () => el.classList.add('roses-ready'));
+        } catch {
+          /* fallback rule stays visible */
+        }
+      });
+    },
+    { rootMargin: '0px 0px -20% 0px' }
+  );
+  ornaments.forEach((o) => io.observe(o));
+}
+
 // ── Entry point ────────────────────────────────────────────────
 export function initInteractions(): void {
-  const guest = initGuest();
   const music = initMusic();
   initGate(music);
   initScratch();
   initCountdown();
-  initRsvp(guest);
+  initRsvp();
+  initOrnaments();
 }

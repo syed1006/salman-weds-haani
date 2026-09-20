@@ -31,9 +31,6 @@ npm run preview  # serve the built site
 All names, dates, venues, dua text, RSVP WhatsApp number, and family names live
 in one file: **`src/data/wedding.ts`**. Details are from the printed card.
 
-- **Per-guest links** — share `https://yoursite.com/?to=Guest+Name` to show
-  "Dear Guest Name & family" on the gate and hero; the guest's name is also
-  appended to their WhatsApp RSVP message.
 - **Background nasheed** — drop an audio file at `public/audio/nasheed.mp3`
   and the floating music button appears automatically (starts on gate tap).
 - **RSVP WhatsApp** — `rsvp.whatsapp` in `wedding.ts` (currently the number

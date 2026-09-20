@@ -193,11 +193,66 @@ a {
   text-shadow: 0 2px 30px rgba(176, 106, 119, 0.25);
 }
 
-.gate-guest {
-  font-style: italic;
-  color: var(--muted);
-  font-size: 1.15rem;
-  min-height: 1.5em;
+/* watercolor garland draped across the top of the gate */
+.gate-garland {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: min(132vw, 46rem);
+  max-width: none;
+  height: auto;
+  transform: translateX(-50%);
+  transform-origin: top center;
+  animation: garland-sway 9s ease-in-out infinite;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 14px rgba(138, 85, 96, 0.12));
+}
+
+@keyframes garland-sway {
+  0%, 100% { transform: translateX(-50%) rotate(0.5deg); }
+  50% { transform: translateX(-50%) rotate(-0.5deg); }
+}
+
+.gate-inner {
+  margin-top: clamp(3rem, 10vh, 6rem);
+}
+
+/* twinkling gold sparkles scattered over the gate */
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-bright);
+  box-shadow: 0 0 10px 3px rgba(212, 179, 120, 0.7);
+  opacity: 0;
+  animation: twinkle 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.sparkle:nth-of-type(1) { top: 24%; left: 10%; animation-delay: 0s; }
+.sparkle:nth-of-type(2) { top: 34%; right: 12%; animation-delay: 0.7s; }
+.sparkle:nth-of-type(3) { top: 55%; left: 7%; animation-delay: 1.3s; width: 4px; height: 4px; }
+.sparkle:nth-of-type(4) { top: 62%; right: 9%; animation-delay: 1.9s; }
+.sparkle:nth-of-type(5) { top: 78%; left: 16%; animation-delay: 0.4s; width: 4px; height: 4px; }
+.sparkle:nth-of-type(6) { top: 82%; right: 18%; animation-delay: 2.4s; }
+.sparkle:nth-of-type(7) { top: 44%; left: 20%; animation-delay: 2.9s; width: 4px; height: 4px; }
+.sparkle:nth-of-type(8) { top: 70%; right: 30%; animation-delay: 1.1s; width: 4px; height: 4px; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.4); }
+  50% { opacity: 0.95; transform: scale(1); }
+}
+
+/* white-gold flash used for the reveal transition */
+.flash {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: radial-gradient(circle at 50% 42%, #fffdf7, #f8ecd9 55%, #efd9bc);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 /* the envelope IS the open button */
@@ -378,11 +433,44 @@ a {
   line-height: 1.15;
 }
 
+/* watercolor garland valance across the top of the hero */
+.hero-garland {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: min(126vw, 44rem);
+  max-width: none;
+  height: auto;
+  transform: translateX(-50%);
+  transform-origin: top center;
+  animation: garland-sway 10s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .hero-names .name {
   font-family: var(--font-script);
   font-size: clamp(3rem, 11vw, 6.2rem);
-  color: var(--rose);
-  text-shadow: 0 2px 34px rgba(176, 106, 119, 0.3);
+  /* gold shimmer sweeping through the dusty-rose names */
+  background: linear-gradient(
+    105deg,
+    var(--rose) 25%,
+    #cf9484 42%,
+    var(--gold-bright) 50%,
+    #cf9484 58%,
+    var(--rose) 75%
+  );
+  background-size: 230% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 5.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 14px rgba(176, 106, 119, 0.3));
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 115% 0; }
+  50% { background-position: -15% 0; }
 }
 
 .hero-names .amp {
@@ -413,12 +501,6 @@ a {
   letter-spacing: 0.3em;
   text-indent: 0.3em;
   color: var(--mauve);
-}
-
-.hero-guest {
-  font-style: italic;
-  color: var(--muted);
-  min-height: 1.5em;
 }
 
 .scroll-cue {
@@ -727,7 +809,16 @@ a {
   position: relative;
   margin-left: 0.6rem;
   padding-left: 1.6rem;
-  border-left: 1px solid var(--gold-dim);
+}
+
+/* the gold spine that draws itself on scroll */
+.timeline-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, var(--gold), var(--gold-dim));
 }
 
 .timeline-item {
@@ -911,29 +1002,6 @@ a {
   font-size: 1rem;
 }
 
-/* ── Compliments ──────────────────────────────────────── */
-
-.compliments-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.compliments-list li {
-  font-size: 1.15rem;
-  color: var(--mauve);
-}
-
-.compliments-closing {
-  margin-top: 1.6rem;
-  font-size: 0.85rem;
-  letter-spacing: 0.35em;
-  text-indent: 0.35em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
 /* ── Thank you / footer ───────────────────────────────── */
 
 .thankyou {
@@ -1053,27 +1121,44 @@ a {
   pointer-events: none;
 }
 
-/* ── Ornament divider ─────────────────────────────────── */
+/* ── Ornament divider (gold roses draw themselves in) ─── */
 
 .ornament {
+  position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 0 1.5rem;
+  min-height: 3.4rem;
 }
 
-.ornament svg {
+.ornament-lottie {
+  width: min(19rem, 74vw);
+  aspect-ratio: 900 / 240;
+}
+
+.ornament-fallback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: min(16rem, 70vw);
   height: auto;
 }
 
-.ornament path {
+.ornament-fallback path {
   fill: none;
   stroke: var(--gold-dim);
   stroke-width: 1.2;
 }
 
-.ornament .diamond {
+.ornament-fallback .diamond {
   stroke: var(--gold);
+}
+
+/* once the roses animation is live, hide the plain rule */
+.ornament.roses-ready .ornament-fallback {
+  display: none;
 }
 
 /* UA `hidden` attribute must beat our display rules */
@@ -1088,8 +1173,12 @@ a {
   html { scroll-behavior: auto; }
   .scroll-cue .line,
   .chandelier,
-  .ch-flames ellipse,
+  .chandelier .ch-glow,
   .gate-lottie,
   .gate-hint,
+  .gate-garland,
+  .hero-garland,
+  .hero-names .name,
+  .sparkle,
   .music-toggle.playing { animation: none; }
 }
