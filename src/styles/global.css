@@ -47,6 +47,11 @@ body.locked {
   height: 100dvh;
 }
 
+/* belt-and-braces: nothing may widen the layout viewport on mobile */
+html {
+  overflow-x: clip;
+}
+
 /* Fixed falling-petals canvas sits behind everything */
 #petals {
   position: fixed;
@@ -156,6 +161,9 @@ a {
   justify-content: center;
   text-align: center;
   padding: 2rem;
+  /* the garland is wider than the viewport — clip it here so mobile
+     browsers don't widen the layout viewport */
+  overflow: hidden;
   /* embossed lattice texture over the blush glow, like the printed card */
   background:
     repeating-linear-gradient(45deg, rgba(185, 140, 74, 0.05) 0 1px, transparent 1px 24px),
@@ -368,22 +376,23 @@ a {
 
 .hero-couple {
   position: relative;
-  margin-top: clamp(5rem, 16vh, 9rem);
+  margin-top: clamp(5rem, 15vh, 8.5rem);
   display: flex;
   justify-content: center;
   animation: float 5.5s ease-in-out infinite;
 }
 
-/* soft blush halo behind the couple */
+/* soft blush halo behind the swans */
 .hero-couple .couple-glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 165%;
-  aspect-ratio: 1;
+  width: 110%;
+  aspect-ratio: 1.6;
+  border-radius: 50%;
   transform: translate(-50%, -50%);
   background: radial-gradient(
-    circle,
+    ellipse,
     rgba(246, 224, 228, 0.95),
     rgba(212, 179, 120, 0.25) 48%,
     transparent 72%
@@ -394,7 +403,7 @@ a {
 
 .hero-couple img {
   position: relative;
-  width: clamp(9rem, 30vw, 12.5rem);
+  width: clamp(17rem, 82vw, 24rem);
   height: auto;
   filter: drop-shadow(0 12px 26px rgba(138, 85, 96, 0.28));
 }
@@ -442,6 +451,11 @@ a {
 .hero-names .name {
   font-family: var(--font-script);
   font-size: clamp(3rem, 11vw, 6.2rem);
+  /* script swashes overflow the em box — give the clipped
+     background room so no stroke gets cut */
+  padding: 0.14em 0.42em;
+  margin: -0.06em 0;
+  line-height: 1.25;
   /* gold shimmer sweeping through the dusty-rose names */
   background: linear-gradient(
     105deg,
@@ -1050,10 +1064,6 @@ a {
   font-style: italic;
   font-size: 1.2rem;
   color: var(--mauve);
-}
-
-.share-btn {
-  margin-top: 1.8rem;
 }
 
 .footer-monogram {
