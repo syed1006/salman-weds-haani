@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 
-// Deployed on GitHub Pages at https://syed1006.github.io/salman-weds-haani/
+// Served at the custom domain root — https://salmanwedshani.life
 export default defineConfig({
-  site: 'https://syed1006.github.io',
-  base: '/salman-weds-haani',
+  site: 'https://salmanwedshani.life',
 });
