@@ -12,7 +12,7 @@ export function initScroll(): void {
     // ── Hero entrance: plays once the flash clears ──
     const heroBits = [
       '.hero-garland',
-      '.chandelier',
+      '.hero-couple',
       '.hero .eyebrow',
       '.hero-names > *',
       '.rings',
@@ -29,12 +29,12 @@ export function initScroll(): void {
           .timeline({ defaults: { ease: 'power3.out' }, delay: 0.15 })
           .fromTo('.hero-garland', { y: -70 }, { autoAlpha: 1, y: 0, duration: 1.3 })
           .fromTo(
-            '.chandelier',
-            { y: -90 },
-            { autoAlpha: 1, y: 0, duration: 1.7, ease: 'elastic.out(1, 0.55)' },
-            0.15
+            '.hero-couple',
+            { y: 50, scale: 0.8 },
+            { autoAlpha: 1, y: 0, scale: 1, duration: 1.4, ease: 'back.out(1.5)' },
+            0.25
           )
-          .to('.hero .eyebrow', { autoAlpha: 1, duration: 0.8 }, '-=1.1')
+          .to('.hero .eyebrow', { autoAlpha: 1, duration: 0.8 }, '-=0.9')
           .fromTo(
             '.hero-names > *',
             { y: 30 },
@@ -48,26 +48,7 @@ export function initScroll(): void {
       { once: true }
     );
 
-    // ── Hero drifts away in layers as you scroll on (parallax) ──
-    gsap.to('.hero-inner', {
-      autoAlpha: 0,
-      y: -90,
-      scale: 0.96,
-      ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 25%', scrub: true },
-    });
-    gsap.to('.chandelier', {
-      y: -140,
-      autoAlpha: 0,
-      ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 40%', scrub: true },
-    });
-    gsap.to('.hero-garland', {
-      y: -60,
-      autoAlpha: 0,
-      ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 55%', scrub: true },
-    });
+    // (the hero scrolls away naturally — nothing fades out early)
 
     // ── Every .reveal-group rises softly as it enters ──
     document.querySelectorAll<HTMLElement>('.reveal-group').forEach((group) => {

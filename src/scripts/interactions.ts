@@ -427,6 +427,26 @@ function initOrnaments(): void {
   ornaments.forEach((o) => io.observe(o));
 }
 
+// ── Share the invitation (native sheet, WhatsApp fallback) ─────
+function initShare(): void {
+  const btn = document.getElementById('share-btn');
+  if (!btn) return;
+  btn.addEventListener('click', async () => {
+    const url = location.origin + location.pathname;
+    const text = `Wedding Invitation — Salman & Hani ❤️ Nikah: 11th October 2026, Arasikere. Insha Allah, join us!`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'Salman & Hani — Wedding Invitation', text, url });
+        return;
+      }
+    } catch {
+      /* user dismissed the sheet */
+      return;
+    }
+    open(`https://wa.me/?text=${encodeURIComponent(`${text}\n${url}`)}`, '_blank');
+  });
+}
+
 // ── Entry point ────────────────────────────────────────────────
 export function initInteractions(): void {
   const music = initMusic();
@@ -435,4 +455,5 @@ export function initInteractions(): void {
   initCountdown();
   initRsvp();
   initOrnaments();
+  initShare();
 }

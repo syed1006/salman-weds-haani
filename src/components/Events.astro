@@ -1,6 +1,13 @@
 ---
 import { wedding } from '../data/wedding';
-const { events } = wedding;
+const { events, couple } = wedding;
+
+const gcalUrl = (ev: (typeof events)[number]) =>
+  'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+  `&text=${encodeURIComponent(`${ev.badge} — ${couple.shortNames}`)}` +
+  `&dates=${ev.gcalStart}/${ev.gcalEnd}` +
+  `&location=${encodeURIComponent(`${ev.venue}, ${ev.address}`)}` +
+  `&details=${encodeURIComponent(`${ev.day}, ${ev.date} · ${ev.time}\nInsha Allah — with the blessings of both families.`)}`;
 ---
 
 <section class="events center" id="events">
@@ -62,9 +69,14 @@ const { events } = wedding;
 
           {ev.note && <p class="event-note">{ev.note}</p>}
 
-          <a class="btn btn-map" href={ev.mapUrl} target="_blank" rel="noopener">
-            View Location on Google Maps
-          </a>
+          <div class="event-actions">
+            <a class="btn btn-map" href={ev.mapUrl} target="_blank" rel="noopener">
+              📍 View Location
+            </a>
+            <a class="btn btn-map" href={gcalUrl(ev)} target="_blank" rel="noopener">
+              🗓 Add to Calendar
+            </a>
+          </div>
         </article>
       ))}
     </div>

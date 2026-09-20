@@ -17,6 +17,9 @@ export interface WeddingEvent {
   venue: string;
   address: string;
   mapUrl: string;
+  /** UTC start/end (YYYYMMDDTHHMMSSZ) for the Add-to-Calendar link */
+  gcalStart: string;
+  gcalEnd: string;
   note?: string;
 }
 
@@ -84,6 +87,8 @@ export const wedding = {
       address: 'Masjid Usman Bin Affan, Kendad Gundi Rd, Santhepet, Tippu Nagar, Arasikere, Karnataka 573103',
       mapUrl:
         'https://www.google.com/maps/search/?api=1&query=Masjid%20Usman%20Bin%20Affan%20%28Markaz%29%2C%20Kendad%20Gundi%20Rd%2C%20Santhepet%2C%20Tippu%20Nagar%2C%20Arasikere%2C%20Karnataka%20573103',
+      gcalStart: '20261011T070000Z', // 12:30 PM IST
+      gcalEnd: '20261011T093000Z', // 3:00 PM IST
       note: 'Insha Allah',
     },
     {
@@ -97,6 +102,8 @@ export const wedding = {
       address: 'Mutton Market Road, Tippu Nagar, Arasikere, Karnataka 573103',
       mapUrl:
         'https://www.google.com/maps/search/?api=1&query=SMJ%20SAMUDAYA%20BHAVANA%2C%208775%2BJ62%2C%20Mutton%20Market%20Road%2C%20Tippu%20Nagar%2C%20Arasikere%2C%20Karnataka%20573103',
+      gcalStart: '20261011T080000Z', // 1:30 PM IST
+      gcalEnd: '20261011T103000Z', // 4:00 PM IST
     },
     {
       id: 'valima',
@@ -111,6 +118,8 @@ export const wedding = {
       address: 'Mutton Market Road, Tippu Nagar, Arasikere, Karnataka 573103',
       mapUrl:
         'https://www.google.com/maps/search/?api=1&query=SMJ%20SAMUDAYA%20BHAVANA%2C%208775%2BJ62%2C%20Mutton%20Market%20Road%2C%20Tippu%20Nagar%2C%20Arasikere%2C%20Karnataka%20573103',
+      gcalStart: '20261013T080000Z', // 1:30 PM IST
+      gcalEnd: '20261013T110000Z', // 4:30 PM IST
     },
   ] satisfies WeddingEvent[],
 
