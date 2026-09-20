@@ -157,12 +157,11 @@ a {
   inset: 0;
   z-index: 60;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
-  padding: 2rem;
-  /* the garland is wider than the viewport — clip it here so mobile
-     browsers don't widen the layout viewport */
+  padding: 0 0 1.2rem;
   overflow: hidden;
   /* embossed lattice texture over the blush glow, like the printed card */
   background:
@@ -201,28 +200,22 @@ a {
   text-shadow: 0 2px 30px rgba(176, 106, 119, 0.25);
 }
 
-/* watercolor garland draped across the top of the gate */
+/* watercolor garland: a full-bleed floral band across the top.
+   It sits in normal flow, so it can never cover the text below —
+   on any screen size. */
 .gate-garland {
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  width: min(132vw, 46rem);
-  max-width: none;
-  height: auto;
-  transform: translateX(-50%);
-  transform-origin: top center;
-  animation: garland-sway 9s ease-in-out infinite;
+  width: 100%;
+  height: clamp(150px, 24vh, 320px);
+  object-fit: cover;
+  object-position: center top;
   pointer-events: none;
   filter: drop-shadow(0 6px 14px rgba(138, 85, 96, 0.12));
 }
 
-@keyframes garland-sway {
-  0%, 100% { transform: translateX(-50%) rotate(0.5deg); }
-  50% { transform: translateX(-50%) rotate(-0.5deg); }
-}
-
+/* centre the content in the space left under the garland */
 .gate-inner {
-  margin-top: clamp(3rem, 10vh, 6rem);
+  margin: auto;
+  padding: 1rem 2rem 0;
 }
 
 /* twinkling gold sparkles scattered over the gate */
@@ -349,9 +342,9 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
-  padding-top: 1rem;
+  padding-top: 0;
   /* the bloom is wider than the viewport — clip it so mobile
      browsers don't widen the layout viewport and zoom out */
   overflow: hidden;
@@ -376,23 +369,23 @@ a {
 
 .hero-couple {
   position: relative;
-  margin-top: clamp(5rem, 15vh, 8.5rem);
+  margin-top: auto;
   display: flex;
   justify-content: center;
   animation: float 5.5s ease-in-out infinite;
 }
 
-/* soft blush halo behind the swans */
+/* soft blush halo behind the wreath */
 .hero-couple .couple-glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 110%;
-  aspect-ratio: 1.6;
+  width: 140%;
+  aspect-ratio: 1;
   border-radius: 50%;
   transform: translate(-50%, -50%);
   background: radial-gradient(
-    ellipse,
+    circle,
     rgba(246, 224, 228, 0.95),
     rgba(212, 179, 120, 0.25) 48%,
     transparent 72%
@@ -403,9 +396,21 @@ a {
 
 .hero-couple img {
   position: relative;
-  width: clamp(17rem, 82vw, 24rem);
+  width: clamp(11.5rem, 42vw, 15rem);
   height: auto;
   filter: drop-shadow(0 12px 26px rgba(138, 85, 96, 0.28));
+}
+
+/* the couple's initials, centred in the wreath's ring */
+.monogram-text {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2.6rem, 9.5vw, 3.6rem);
+  color: var(--rose);
+  text-shadow: 0 2px 18px rgba(176, 106, 119, 0.25);
+  white-space: nowrap;
 }
 
 @keyframes sway {
@@ -424,6 +429,8 @@ a {
   align-items: center;
   gap: 1.2rem;
   margin-top: 1.6rem;
+  margin-bottom: auto;
+  padding-bottom: 2rem;
 }
 
 .hero-names {
@@ -433,17 +440,12 @@ a {
   line-height: 1.15;
 }
 
-/* watercolor garland valance across the top of the hero */
+/* watercolor garland: full-bleed floral band across the hero top */
 .hero-garland {
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  width: min(126vw, 44rem);
-  max-width: none;
-  height: auto;
-  transform: translateX(-50%);
-  transform-origin: top center;
-  animation: garland-sway 10s ease-in-out infinite;
+  width: 100%;
+  height: clamp(130px, 20vh, 280px);
+  object-fit: cover;
+  object-position: center top;
   pointer-events: none;
   z-index: 0;
 }
@@ -1187,8 +1189,6 @@ a {
   .hero-couple,
   .gate-lottie,
   .gate-hint,
-  .gate-garland,
-  .hero-garland,
   .hero-names .name,
   .sparkle,
   .music-toggle.playing { animation: none; }
