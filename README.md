@@ -1,4 +1,4 @@
-# Salman & Haani — Wedding Invitation
+# Salman & Hani — Wedding Invitation
 
 A one-page digital wedding invitation built with Astro + GSAP, inspired by the
 scroll-story invitation reels — themed after the couple's printed card:

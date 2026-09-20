@@ -33,7 +33,7 @@ export const wedding = {
       ],
     },
     bride: {
-      name: 'Umme Haani',
+      name: 'Umme Hani',
       degree: 'B.C.A.',
       parents: 'Mr. Mohammed Yousuff & Mrs. Tabassum Unnisa',
       parentsDetail: 'K.K.H. Store, Santhepet, Arsikere',
@@ -42,7 +42,7 @@ export const wedding = {
         'Maternal Grand D/o. Late Mahaboob Shariff Saheb',
       ],
     },
-    shortNames: 'Salman & Haani',
+    shortNames: 'Salman & Hani',
     monogram: 'S · H',
   },
 
@@ -81,8 +81,9 @@ export const wedding = {
       time: '12:30 PM',
       hijri: '29 Rabi us-Sani, 1448 Hijri',
       venue: 'Masjid-e-Usmaniya (Markaz)',
-      address: 'Kendad Gundi Road, Santhepet, Tippu Nagar, Arasikere',
-      mapUrl: 'https://share.google/Giq9yXOuLdI0i0S61',
+      address: 'Masjid Usman Bin Affan, Kendad Gundi Rd, Santhepet, Tippu Nagar, Arasikere, Karnataka 573103',
+      mapUrl:
+        'https://www.google.com/maps/search/?api=1&query=Masjid%20Usman%20Bin%20Affan%20%28Markaz%29%2C%20Kendad%20Gundi%20Rd%2C%20Santhepet%2C%20Tippu%20Nagar%2C%20Arasikere%2C%20Karnataka%20573103',
       note: 'Insha Allah',
     },
     {
@@ -93,8 +94,9 @@ export const wedding = {
       date: '11th October 2026',
       time: 'After Nikah',
       venue: 'S.M.J. Samudaya Bhavana',
-      address: 'Huliyar Road, Opp. Jamia Masjid, Arasikere – 573103',
-      mapUrl: 'https://share.google/Gc9dyH8JIgzApFll4',
+      address: 'Mutton Market Road, Tippu Nagar, Arasikere, Karnataka 573103',
+      mapUrl:
+        'https://www.google.com/maps/search/?api=1&query=SMJ%20SAMUDAYA%20BHAVANA%2C%208775%2BJ62%2C%20Mutton%20Market%20Road%2C%20Tippu%20Nagar%2C%20Arasikere%2C%20Karnataka%20573103',
     },
     {
       id: 'valima',
@@ -106,10 +108,32 @@ export const wedding = {
       time: '1:30 PM Onwards · After Zuhr',
       hijri: '1 Jumada al-Awwal, 1448 Hijri',
       venue: 'S.M.J. Samudaya Bhavana',
-      address: 'Huliyar Road, Opp. Jamia Masjid, Arasikere – 573103',
-      mapUrl: 'https://share.google/Gc9dyH8JIgzApFll4',
+      address: 'Mutton Market Road, Tippu Nagar, Arasikere, Karnataka 573103',
+      mapUrl:
+        'https://www.google.com/maps/search/?api=1&query=SMJ%20SAMUDAYA%20BHAVANA%2C%208775%2BJ62%2C%20Mutton%20Market%20Road%2C%20Tippu%20Nagar%2C%20Arasikere%2C%20Karnataka%20573103',
     },
   ] satisfies WeddingEvent[],
+
+  // Day-of schedule shown as a vertical timeline
+  program: {
+    eyebrow: 'The Celebration',
+    heading: 'Program Timeline',
+    days: [
+      {
+        title: 'Nikah Day — Sunday, 11th October 2026',
+        items: [
+          { time: '12:30 PM', label: 'Nikah Ceremony', sub: 'Masjid-e-Usmaniya (Markaz) · Insha Allah' },
+          { time: 'After Nikah', label: 'Dawat-e-Nikah · Lunch', sub: 'S.M.J. Samudaya Bhavana' },
+        ],
+      },
+      {
+        title: 'Valima — Tuesday, 13th October 2026',
+        items: [
+          { time: '1:30 PM', label: 'Valima Lunch · After Zuhr', sub: 'S.M.J. Samudaya Bhavana' },
+        ],
+      },
+    ],
+  },
 
   rsvp: {
     heading: 'Will You Join Our Big Day?',
@@ -133,8 +157,8 @@ export const wedding = {
   music: '/audio/nasheed.mp3',
 
   meta: {
-    title: 'Salman & Haani — Wedding Invitation',
+    title: 'Salman & Hani — Wedding Invitation',
     description:
-      'With the blessings of Almighty Allah, the families invite you to the Nikah & Valima of Syed Salman and Umme Haani — 11th & 13th October 2026, Arasikere.',
+      'With the blessings of Almighty Allah, the families invite you to the Nikah & Valima of Syed Salman and Umme Hani — 11th & 13th October 2026, Arasikere.',
   },
 };

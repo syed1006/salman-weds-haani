@@ -1,47 +1,25 @@
 ---
 import { wedding } from '../data/wedding';
 const { couple, bigDay } = wedding;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <section class="hero" id="hero">
   <!-- Soft golden bloom that breathes in as the curtains part -->
   <div class="hero-bloom" aria-hidden="true"></div>
 
-  <!-- Gold chandelier swaying gently over the names -->
+  <!-- Ornate gold lantern-chandelier swaying gently over the names -->
   <div class="chandelier" aria-hidden="true">
-    <svg viewBox="0 0 260 190" class="chandelier-svg">
-      <g class="ch-stroke">
-        <line x1="130" y1="0" x2="130" y2="34" />
-        <circle cx="130" cy="40" r="6" />
-        <!-- arms -->
-        <path d="M130 46 C 80 52 52 78 48 108" />
-        <path d="M130 46 C 180 52 208 78 212 108" />
-        <path d="M130 46 C 98 58 84 82 82 108" />
-        <path d="M130 46 C 162 58 176 82 178 108" />
-        <line x1="130" y1="46" x2="130" y2="96" />
-        <!-- candle cups -->
-        <path d="M40 108 h16 M74 108 h16 M122 96 h16 M170 108 h16 M204 108 h16" />
-        <!-- candles -->
-        <rect x="44" y="92" width="8" height="16" rx="1.5" />
-        <rect x="78" y="92" width="8" height="16" rx="1.5" />
-        <rect x="126" y="80" width="8" height="16" rx="1.5" />
-        <rect x="174" y="92" width="8" height="16" rx="1.5" />
-        <rect x="208" y="92" width="8" height="16" rx="1.5" />
-        <!-- crystals -->
-        <path d="M82 116 l4 8 -4 8 -4 -8 z" />
-        <path d="M130 122 l4 8 -4 8 -4 -8 z" />
-        <path d="M178 116 l4 8 -4 8 -4 -8 z" />
-        <path d="M48 114 l3 6 -3 6 -3 -6 z" />
-        <path d="M212 114 l3 6 -3 6 -3 -6 z" />
-      </g>
-      <g class="ch-flames">
-        <ellipse cx="48" cy="86" rx="3.4" ry="6" />
-        <ellipse cx="82" cy="86" rx="3.4" ry="6" />
-        <ellipse cx="130" cy="74" rx="3.8" ry="6.5" />
-        <ellipse cx="178" cy="86" rx="3.4" ry="6" />
-        <ellipse cx="212" cy="86" rx="3.4" ry="6" />
-      </g>
-    </svg>
+    <span class="chain"></span>
+    <span class="ch-glow"></span>
+    <img
+      src={`${base}/img/chandelier.webp`}
+      alt=""
+      width="433"
+      height="700"
+      loading="eager"
+      decoding="async"
+    />
   </div>
 
   <div class="hero-inner">

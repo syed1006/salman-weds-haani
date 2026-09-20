@@ -87,6 +87,14 @@ function initGate(music: { tryPlay: () => void }): void {
         duration: 0.5,
         ease: 'power2.in',
       })
+      // a burst of golden light escapes the envelope…
+      .fromTo(
+        '.light-burst',
+        { autoAlpha: 0, scale: 0.3 },
+        { autoAlpha: 1, scale: 2.4, duration: 0.55, ease: 'power2.out' },
+        0.15
+      )
+      .to('.light-burst', { autoAlpha: 0, scale: 3.1, duration: 0.7, ease: 'power1.out' }, 0.7)
       // …then we travel INTO the risen letter, the gate melting around it
       .to('.gate-lottie', { scale: 2.4, duration: 1.4, ease: 'power2.inOut' }, 0.25)
       .to('.gate-lottie', { autoAlpha: 0, duration: 0.7, ease: 'power1.in' }, 0.85)
@@ -386,8 +394,8 @@ function initRsvp(guest: string): void {
       : 'You will be missed — please keep us in your duas 🤲';
     if (number) {
       const msg = going
-        ? `Assalamu alaikum! Insha Allah we will join the Nikah of Salman & Haani on 11th October 2026 ❤️${from}`
-        : `Assalamu alaikum! We are sorry we can't make it to the Nikah of Salman & Haani — our duas are always with you 🤲${from}`;
+        ? `Assalamu alaikum! Insha Allah we will join the Nikah of Salman & Hani on 11th October 2026 ❤️${from}`
+        : `Assalamu alaikum! We are sorry we can't make it to the Nikah of Salman & Hani — our duas are always with you 🤲${from}`;
       wa.href = `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
       wa.hidden = false;
     }

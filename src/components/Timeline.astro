@@ -1,0 +1,29 @@
+---
+import { wedding } from '../data/wedding';
+const { program } = wedding;
+---
+
+<section class="program center" id="program">
+  <div class="container">
+    <div class="reveal-group">
+      <p class="eyebrow">{program.eyebrow}</p>
+      <h2 class="section-title">{program.heading}</h2>
+    </div>
+
+    {program.days.map((day) => (
+      <div class="program-day reveal-group">
+        <p class="program-day-title script">{day.title}</p>
+        <ol class="timeline">
+          {day.items.map((it) => (
+            <li class="timeline-item">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-time">{it.time}</span>
+              <span class="timeline-label">{it.label}</span>
+              <span class="timeline-sub">{it.sub}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    ))}
+  </div>
+</section>

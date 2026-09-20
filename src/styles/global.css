@@ -156,7 +156,10 @@ a {
   justify-content: center;
   text-align: center;
   padding: 2rem;
+  /* embossed lattice texture over the blush glow, like the printed card */
   background:
+    repeating-linear-gradient(45deg, rgba(185, 140, 74, 0.05) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(-45deg, rgba(185, 140, 74, 0.05) 0 1px, transparent 1px 24px),
     radial-gradient(850px 560px at 50% 32%, rgba(246, 224, 228, 0.9), transparent 72%),
     var(--ivory);
 }
@@ -199,12 +202,33 @@ a {
 
 /* the envelope IS the open button */
 .gate-envelope {
+  position: relative;
   margin-top: 0.4rem;
   padding: 0;
   border: none;
   background: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* golden flash that escapes the envelope as it opens */
+.light-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(60vw, 18rem);
+  aspect-ratio: 1;
+  margin: calc(min(60vw, 18rem) / -2) 0 0 calc(min(60vw, 18rem) / -2);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 251, 238, 0.98),
+    rgba(240, 210, 150, 0.55) 42%,
+    transparent 72%
+  );
+  filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .gate-lottie {
@@ -288,45 +312,55 @@ a {
 }
 
 .chandelier {
-  width: clamp(11rem, 34vw, 16rem);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   transform-origin: top center;
-  animation: sway 7s ease-in-out infinite;
+  animation: sway 8s ease-in-out infinite;
 }
 
-.chandelier-svg {
-  width: 100%;
+/* chain from the top of the page down to the lantern */
+.chandelier .chain {
+  width: 2px;
+  height: clamp(1.6rem, 5vh, 3.4rem);
+  background: linear-gradient(180deg, transparent, var(--gold));
+}
+
+/* warm candlelight glow behind the lantern */
+.chandelier .ch-glow {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  width: 160%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -32%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 196, 110, 0.4),
+    rgba(232, 168, 60, 0.16) 42%,
+    transparent 70%
+  );
+  filter: blur(4px);
+  animation: glow-breathe 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.chandelier img {
+  position: relative;
+  width: clamp(6.5rem, 21vw, 9.5rem);
   height: auto;
-  overflow: visible;
+  filter: drop-shadow(0 10px 24px rgba(138, 85, 96, 0.35));
 }
-
-.ch-stroke * {
-  fill: none;
-  stroke: var(--gold);
-  stroke-width: 2;
-  stroke-linecap: round;
-}
-
-.ch-flames ellipse {
-  fill: #e8a83c;
-  filter: drop-shadow(0 0 5px rgba(232, 168, 60, 0.8));
-  animation: flicker 1.8s ease-in-out infinite;
-  transform-origin: center 90%;
-}
-
-.ch-flames ellipse:nth-child(2) { animation-delay: 0.4s; }
-.ch-flames ellipse:nth-child(3) { animation-delay: 0.9s; }
-.ch-flames ellipse:nth-child(4) { animation-delay: 0.2s; }
-.ch-flames ellipse:nth-child(5) { animation-delay: 0.6s; }
 
 @keyframes sway {
-  0%, 100% { transform: rotate(1.6deg); }
-  50% { transform: rotate(-1.6deg); }
+  0%, 100% { transform: rotate(2deg); }
+  50% { transform: rotate(-2deg); }
 }
 
-@keyframes flicker {
-  0%, 100% { opacity: 1; transform: scaleY(1); }
-  40% { opacity: 0.75; transform: scaleY(0.86); }
-  70% { opacity: 0.95; transform: scaleY(1.06); }
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
 }
 
 .hero-inner {
@@ -671,6 +705,69 @@ a {
   letter-spacing: 0.28em;
   text-indent: 0.28em;
   text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Program timeline ─────────────────────────────────── */
+
+.program-day {
+  max-width: 24rem;
+  margin: 3rem auto 0;
+  text-align: left;
+}
+
+.program-day-title {
+  text-align: center;
+  font-size: clamp(1.5rem, 4.5vw, 1.9rem);
+  margin-bottom: 1.6rem;
+}
+
+.timeline {
+  list-style: none;
+  position: relative;
+  margin-left: 0.6rem;
+  padding-left: 1.6rem;
+  border-left: 1px solid var(--gold-dim);
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.6rem;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0.2rem;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: calc(-1.6rem - 5.5px);
+  top: 0.5em;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px rgba(185, 140, 74, 0.18);
+}
+
+.timeline-time {
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+
+.timeline-label {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--mauve);
+}
+
+.timeline-sub {
+  font-style: italic;
+  font-size: 0.95rem;
   color: var(--muted);
 }
 
